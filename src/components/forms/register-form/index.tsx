@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { addUser } from '@/actions/user/add'
+import FormStatus from '@/components/forms/form-status'
 import {
 	Step1,
 	Step1Foot,
@@ -27,9 +28,10 @@ import {
 	Step4Foot,
 	Step4Head
 } from '@/components/forms/register-form/step-4'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Form } from '@/components/ui/form'
 import { genId } from '@/lib/gen-id'
+import { cn } from '@/lib/utils'
 import { RegistrationSchema, registrationSchema } from '@/schema/registration'
 
 const RegisterForm = () => {
@@ -55,23 +57,44 @@ const RegisterForm = () => {
 		}
 	})
 
+	const [success, setSuccess] = useState<string | undefined>('')
+	const [error, setError] = useState<string | undefined>('')
+
 	const [step, setStep] = useState<number>(1)
 
-	const { mutate: onRegister } = useMutation({
+	const { mutate: onRegister, isPending } = useMutation({
 		mutationFn: async (values: RegistrationSchema) => {
+			setSuccess('')
+			setError('')
+
 			const id = genId()
 
 			values.id = `FIMI${id}`
 			values.createdAt = format(new Date(), 'dd/MM/yyyy')
 
-			await addUser(values)
-
 			form.reset()
+
+			return await addUser(values)
+		},
+		onSuccess: data => {
+			if (!data.error) {
+				setSuccess(
+					'Đăng ký tài mã giới thiệu thành công, truy cập email đã đăng ký để nhận mail xác nhận'
+				)
+			}
+
+			if (data.error) {
+				setError(data.error)
+			}
 		}
 	})
 
 	return (
-		<Card className='w-[450px]'>
+		<Card
+			className={cn('z-50 w-[450px] bg-background/80 backdrop-blur-md', {
+				['hidden']: success
+			})}
+		>
 			<CardHeader>
 				<>
 					{step === 1 && <Step1Head />}
@@ -87,12 +110,22 @@ const RegisterForm = () => {
 				>
 					<CardContent>
 						<div className='space-y-4'>
-							{step === 1 && <Step1 control={form.control} />}
+							{step === 1 && (
+								<Step1
+									control={form.control}
+									isPending={isPending}
+								/>
+							)}
 							{step === 2 && <Step2 control={form.control} />}
 							{step === 3 && <Step3 control={form.control} />}
 							{step === 4 && <Step4 control={form.control} />}
 						</div>
 						<div className='pt-8'>
+							<FormStatus
+								type='error'
+								message={error}
+							/>
+							<FormStatus message={success} />
 							{step === 1 && (
 								<Step1Foot
 									step={step}

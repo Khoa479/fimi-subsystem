@@ -72,4 +72,8 @@ export const addUser = async (values: RegistrationSchema) => {
 		subject: 'Thông tin đăng ký',
 		html
 	})
+
+	return {
+		success: `Truy cập "${userData.email}" để nhận mail xác nhận đăng ký thành công`
+	}
 }

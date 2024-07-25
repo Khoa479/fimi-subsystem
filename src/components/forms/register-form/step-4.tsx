@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { Control } from 'react-hook-form'
 
@@ -11,7 +12,6 @@ import {
 	FormLabel,
 	FormMessage
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import {
 	Select,
 	SelectContent,
@@ -19,21 +19,22 @@ import {
 	SelectTrigger,
 	SelectValue
 } from '@/components/ui/select'
-import { bankList } from '@/constants/bank-list'
 import { chanelList } from '@/constants/chanel-list'
 import { positionList } from '@/constants/position-list'
 import { cn } from '@/lib/utils'
 
 interface StepProps {
 	control?: Control<any, any>
+	isPending?: boolean
 }
 
 interface StepFootProps {
 	step: number
 	setStep: Dispatch<SetStateAction<number>>
+	isPending?: boolean
 }
 
-export const Step4: FC<StepProps> = ({ control }) => {
+export const Step4: FC<StepProps> = ({ control, isPending }) => {
 	return (
 		<>
 			<FormField
@@ -43,6 +44,7 @@ export const Step4: FC<StepProps> = ({ control }) => {
 					<FormItem>
 						<FormLabel>Vị trí</FormLabel>
 						<Select
+							disabled={isPending}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 						>
@@ -73,6 +75,7 @@ export const Step4: FC<StepProps> = ({ control }) => {
 					<FormItem>
 						<FormLabel>Kênh tiếp thị</FormLabel>
 						<Select
+							disabled={isPending}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 						>
@@ -103,6 +106,7 @@ export const Step4: FC<StepProps> = ({ control }) => {
 					<FormItem>
 						<FormLabel>Trạng thái công việc</FormLabel>
 						<Select
+							disabled={isPending}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 						>
@@ -126,6 +130,7 @@ export const Step4: FC<StepProps> = ({ control }) => {
 					<FormItem>
 						<FormLabel>Hỗ trợ</FormLabel>
 						<Select
+							disabled={isPending}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 						>
@@ -147,9 +152,17 @@ export const Step4: FC<StepProps> = ({ control }) => {
 				control={control}
 				name='tnc'
 				render={({ field }) => (
-					<FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4'>
+					<FormItem
+						className={cn(
+							'flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4',
+							{
+								'opacity-50': isPending
+							}
+						)}
+					>
 						<FormControl>
 							<Checkbox
+								disabled={isPending}
 								checked={field.value}
 								onCheckedChange={field.onChange}
 							/>
@@ -171,17 +184,19 @@ export const Step4Head = () => {
 	return <CardTitle>Thông tin thêm</CardTitle>
 }
 
-export const Step4Foot: FC<StepFootProps> = ({ step, setStep }) => {
+export const Step4Foot: FC<StepFootProps> = ({ step, setStep, isPending }) => {
 	return (
 		<div className='flex w-full items-center justify-between'>
 			<Button
 				variant='outline'
+				disabled={isPending}
 				onClick={e => {
 					e.preventDefault()
 
 					setStep(step - 1)
 				}}
 			>
+				{isPending && <Loader2 className='h-5 w-4 animate-spin' />}
 				Prev
 			</Button>
 			<Button type='submit'>Đăng ký</Button>

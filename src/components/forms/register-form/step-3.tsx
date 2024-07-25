@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import { Control, FieldValues } from 'react-hook-form'
 
@@ -22,14 +23,16 @@ import { bankList } from '@/constants/bank-list'
 
 interface StepProps {
 	control?: Control<any, any>
+	isPending?: boolean
 }
 
 interface StepFootProps {
 	step: number
 	setStep: Dispatch<SetStateAction<number>>
+	isPending?: boolean
 }
 
-export const Step3: FC<StepProps> = ({ control }) => {
+export const Step3: FC<StepProps> = ({ control, isPending }) => {
 	return (
 		<>
 			<FormField
@@ -41,6 +44,7 @@ export const Step3: FC<StepProps> = ({ control }) => {
 						<FormControl>
 							<Input
 								{...field}
+								disabled={isPending}
 								className='border-foreground/20'
 							/>
 						</FormControl>
@@ -55,6 +59,7 @@ export const Step3: FC<StepProps> = ({ control }) => {
 					<FormItem>
 						<FormLabel>Ngân hàng</FormLabel>
 						<Select
+							disabled={isPending}
 							onValueChange={field.onChange}
 							defaultValue={field.value}
 						>
@@ -87,6 +92,7 @@ export const Step3: FC<StepProps> = ({ control }) => {
 						<FormControl>
 							<Input
 								{...field}
+								disabled={isPending}
 								className='border-foreground/20'
 							/>
 						</FormControl>
@@ -102,17 +108,19 @@ export const Step3Head = () => {
 	return <CardTitle>Thông tin ngân hàng</CardTitle>
 }
 
-export const Step3Foot: FC<StepFootProps> = ({ step, setStep }) => {
+export const Step3Foot: FC<StepFootProps> = ({ step, setStep, isPending }) => {
 	return (
 		<div className='flex w-full items-center justify-between'>
 			<Button
 				variant='outline'
+				disabled={isPending}
 				onClick={e => {
 					e.preventDefault()
 
 					setStep(step - 1)
 				}}
 			>
+				{isPending && <Loader2 className='h-5 w-4 animate-spin' />}
 				Prev
 			</Button>
 			<Button
@@ -122,6 +130,7 @@ export const Step3Foot: FC<StepFootProps> = ({ step, setStep }) => {
 					setStep(step + 1)
 				}}
 			>
+				{isPending && <Loader2 className='h-5 w-4 animate-spin' />}
 				Next
 			</Button>
 		</div>

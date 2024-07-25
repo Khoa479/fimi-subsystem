@@ -44,6 +44,4 @@ export const mailerHelper = async (to: string, payload: MailPayload) => {
 		subject: payload.subject,
 		html: payload.html
 	})
-
-	console.log(info)
 }

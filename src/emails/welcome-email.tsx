@@ -17,16 +17,10 @@ import { RegistrationSchema } from '@/schema/registration'
 interface WelcomeEmailProps
 	extends Pick<RegistrationSchema, 'fullName' | 'id' | 'bankAccount'> {}
 
-const baseUrl = process.env.VERCEL_URL
-	? `https://${process.env.VERCEL_URL}`
-	: ''
-
 const WelcomeEmail = ({ fullName, id, bankAccount }: WelcomeEmailProps) => (
 	<Html>
 		<Head />
-		<Preview>
-			The sales intelligence platform that helps you uncover qualified leads.
-		</Preview>
+		<Preview>FIMI - Giải pháp bán hàng đa kênh</Preview>
 		<Body style={main}>
 			<Container style={container}>
 				<Img
@@ -91,6 +85,7 @@ export default WelcomeEmail
 
 const main = {
 	backgroundColor: '#ffffff',
+	width: '100%',
 	fontFamily:
 		'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
 }
@@ -98,7 +93,8 @@ const main = {
 const container = {
 	margin: '0 auto',
 	padding: '20px 0 48px',
-	width: 'fit'
+	width: '100%',
+	backgroundColor: '#ffffff'
 }
 
 const brand = {

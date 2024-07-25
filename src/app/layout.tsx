@@ -1,12 +1,12 @@
 import '@/styles/globals.css'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
 import ClientProvider from '@/providers/client.provider'
 
-const font = Inter({ subsets: ['latin'] })
+const font = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
 	title: 'FIMI',
