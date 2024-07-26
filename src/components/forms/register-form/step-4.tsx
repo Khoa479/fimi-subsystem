@@ -116,7 +116,7 @@ export const Step4: FC<StepProps> = ({ control, isPending }) => {
 								</SelectTrigger>
 							</FormControl>
 							<FormMessage />
-							<SelectContent>
+							<SelectContent defaultValue='Đang làm việc'>
 								<SelectItem value='Đang làm việc'>Đang làm việc</SelectItem>
 							</SelectContent>
 						</Select>
@@ -140,7 +140,7 @@ export const Step4: FC<StepProps> = ({ control, isPending }) => {
 								</SelectTrigger>
 							</FormControl>
 							<FormMessage />
-							<SelectContent>
+							<SelectContent defaultValue='Lê Thị Lệ Huyền'>
 								<SelectItem value='AM hỗ trợ'>AM hỗ trợ</SelectItem>
 								<SelectItem value='Lê Thị Lệ Huyền'>Lê Thị Lệ Huyền</SelectItem>
 							</SelectContent>

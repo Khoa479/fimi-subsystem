@@ -7,8 +7,8 @@ const RegisterLayout: FC<PropsWithChildren> = ({ children }) => {
 			<div className='container flex flex-1 items-center justify-center gap-4'>
 				<Image
 					src='/banner.png'
-					width={500}
-					height={500}
+					width={5000}
+					height={5000}
 					alt='banner'
 					className='hidden h-[calc(100vh-4rem)] w-1/2 lg:block'
 				/>

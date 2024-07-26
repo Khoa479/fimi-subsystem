@@ -5,6 +5,7 @@ import { Control } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { CardTitle } from '@/components/ui/card'
+import { DateTimePicker } from '@/components/ui/date-picker'
 import {
 	FormControl,
 	FormField,
@@ -37,7 +38,7 @@ export const Step2: FC<StepProps> = ({ control, isPending }) => {
 		<>
 			<FormField
 				control={control}
-				name='indentityNumber'
+				name='identityNumber'
 				render={({ field }) => (
 					<FormItem>
 						<FormLabel>Số căn cước công dân</FormLabel>
@@ -56,14 +57,16 @@ export const Step2: FC<StepProps> = ({ control, isPending }) => {
 				control={control}
 				name='birthDate'
 				render={({ field }) => (
-					<FormItem>
+					<FormItem className='flex flex-col'>
 						<FormLabel>Ngày sinh</FormLabel>
 						<FormControl>
-							<Input
+							<DateTimePicker
 								{...field}
-								disabled={isPending}
-								placeholder='dd/MM/YYYY'
-								className='border-foreground/20'
+								className='w-full'
+								placeholder='dd/mm/yyyy'
+								value={field.value}
+								onChange={field.onChange}
+								displayFormat={{ hour24: 'dd/MM/yyyy' }}
 							/>
 						</FormControl>
 						<FormMessage />
@@ -87,7 +90,7 @@ export const Step2: FC<StepProps> = ({ control, isPending }) => {
 								</SelectTrigger>
 							</FormControl>
 							<FormMessage />
-							<SelectContent>
+							<SelectContent defaultValue='Nam'>
 								<SelectItem value='Nam'>Nam</SelectItem>
 								<SelectItem value='Nữ'>Nữ</SelectItem>
 								<SelectItem value='Khác'>Khác...</SelectItem>

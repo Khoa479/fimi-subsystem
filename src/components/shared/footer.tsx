@@ -5,8 +5,8 @@ import Link from 'next/link'
 const Footer = () => {
 	return (
 		<div className='flex flex-col'>
-			<div className='relative flex w-full flex-col bg-gradient-to-r from-primary to-red-700 p-4 px-6 text-white'>
-				<div className='flex items-center justify-between'>
+			<div className='flex w-full flex-col bg-gradient-to-r from-primary to-red-700 p-4 px-6 text-white'>
+				<div className='container relative flex items-center justify-between py-2'>
 					<div className='flex flex-1 flex-col gap-2'>
 						<Image
 							src='/sub-logo.png'
@@ -105,7 +105,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className='bg-background p-2 px-6'>
+			<div className='container bg-background'>
 				<p className='font-bold text-primary'>
 					Copyright © FIMI Tech Co., Ltd, all right reserved.
 				</p>

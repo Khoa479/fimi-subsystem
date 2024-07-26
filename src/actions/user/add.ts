@@ -19,12 +19,18 @@ export const addUser = async (values: RegistrationSchema) => {
 
 	const isDuplicated = await checkUserDuplicated(
 		userData.email,
-		userData.indentityNumber,
+		userData.identityNumber,
 		userData.phoneNumber
 	)
 
 	if (isDuplicated) {
 		return { error: 'Người dùng đã tồn tại' }
+	}
+
+	const identityNumberPartern = /^\d{9,9}|\d{12,12}$/
+
+	if (!identityNumberPartern.test(userData.identityNumber)) {
+		return { error: 'Số căn cước không đúng định dạng' }
 	}
 
 	const sheets = await getSheets()
@@ -44,7 +50,7 @@ export const addUser = async (values: RegistrationSchema) => {
 					userData.gender,
 					userData.birthDate,
 					userData.email,
-					userData.indentityNumber,
+					userData.identityNumber,
 					userData.phoneNumber,
 					userData.address,
 					userData.bank,

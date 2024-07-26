@@ -6,11 +6,9 @@ export const registrationSchema = z
 		fullName: z.string().min(1, { message: 'Vui lòng nhập họ và tên' }),
 		email: z.string().email({ message: 'Vui lòng nhập email' }),
 		phoneNumber: z.string().min(1, { message: 'Vui lòng nhập số điện thoại' }),
-		indentityNumber: z
-			.string()
-			.min(1, { message: 'Vui lòng nhập số căn cước công dân' }),
+		identityNumber: z.string(),
 		gender: z.string(),
-		birthDate: z.string(),
+		birthDate: z.union([z.coerce.date(), z.string()]),
 		position: z.string(),
 		address: z.string(),
 		bankAccount: z.string(),

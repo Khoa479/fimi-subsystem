@@ -47,40 +47,41 @@ const RegisterForm = () => {
 			createdAt: '',
 			email: '',
 			gender: '',
-			indentityNumber: '',
+			identityNumber: '',
 			phoneNumber: '',
 			position: '',
 			saleDirector: '',
 			taxCode: '',
 			tnc: false,
 			workStatus: ''
-		}
+		},
+		mode: 'onChange'
 	})
 
-	const [success, setSuccess] = useState<string | undefined>('')
+	const [success, setSuccess] = useState<boolean>(false)
 	const [error, setError] = useState<string | undefined>('')
 
 	const [step, setStep] = useState<number>(1)
 
 	const { mutate: onRegister, isPending } = useMutation({
 		mutationFn: async (values: RegistrationSchema) => {
-			setSuccess('')
+			setSuccess(false)
 			setError('')
 
 			const id = genId()
 
+			const birthDate = values.birthDate
+
 			values.id = `FIMI${id}`
 			values.createdAt = format(new Date(), 'dd/MM/yyyy')
-
-			form.reset()
+			values.birthDate = format(new Date(birthDate), 'dd/MM/yyyy')
 
 			return await addUser(values)
 		},
 		onSuccess: data => {
 			if (!data.error) {
-				setSuccess(
-					'Đăng ký tài mã giới thiệu thành công, truy cập email đã đăng ký để nhận mail xác nhận'
-				)
+				setSuccess(true)
+				form.reset()
 			}
 
 			if (data.error) {
@@ -90,71 +91,94 @@ const RegisterForm = () => {
 	})
 
 	return (
-		<Card
-			className={cn('z-50 w-[450px] bg-background/80 backdrop-blur-md', {
-				['hidden']: success
-			})}
-		>
-			<CardHeader>
-				<>
-					{step === 1 && <Step1Head />}
-					{step === 2 && <Step2Head />}
-					{step === 3 && <Step3Head />}
-					{step === 4 && <Step4Head />}
-				</>
-			</CardHeader>
-			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(values => onRegister(values))}
-					className='space-y-6'
-				>
-					<CardContent>
-						<div className='space-y-4'>
-							{step === 1 && (
-								<Step1
-									control={form.control}
-									isPending={isPending}
+		<div className='flex flex-col items-center justify-center gap-5'>
+			<h2
+				className={cn(
+					'text-center text-4xl font-bold tracking-wider text-primary',
+					{
+						['hidden']: !success,
+						['block']: success
+					}
+				)}
+			>
+				Đăng ký mã giới thiệu thành công
+			</h2>
+			<h2
+				className={cn(
+					'text-center text-4xl font-bold tracking-wider text-primary',
+					{
+						['hidden']: success
+					}
+				)}
+			>
+				Đăng ký mã giới thiệu
+			</h2>
+			<Card
+				className={cn('z-50 w-[450px] bg-background/80 backdrop-blur-md', {
+					['hidden']: success
+				})}
+			>
+				<CardHeader>
+					<>
+						{step === 1 && <Step1Head />}
+						{step === 2 && <Step2Head />}
+						{step === 3 && <Step3Head />}
+						{step === 4 && <Step4Head />}
+					</>
+				</CardHeader>
+				<Form {...form}>
+					<form
+						onSubmit={form.handleSubmit(values => onRegister(values))}
+						className='space-y-6'
+					>
+						<CardContent>
+							<div className='space-y-4'>
+								{step === 1 && (
+									<Step1
+										control={form.control}
+										isPending={isPending}
+									/>
+								)}
+								{step === 2 && <Step2 control={form.control} />}
+								{step === 3 && <Step3 control={form.control} />}
+								{step === 4 && <Step4 control={form.control} />}
+							</div>
+							<div className='flex flex-col space-y-4 pt-8'>
+								<FormStatus
+									type='error'
+									message={error}
 								/>
-							)}
-							{step === 2 && <Step2 control={form.control} />}
-							{step === 3 && <Step3 control={form.control} />}
-							{step === 4 && <Step4 control={form.control} />}
-						</div>
-						<div className='pt-8'>
-							<FormStatus
-								type='error'
-								message={error}
-							/>
-							<FormStatus message={success} />
-							{step === 1 && (
-								<Step1Foot
-									step={step}
-									setStep={setStep}
-								/>
-							)}
-							{step === 2 && (
-								<Step2Foot
-									step={step}
-									setStep={setStep}
-								/>
-							)}
-							{step === 3 && (
-								<Step3Foot
-									step={step}
-									setStep={setStep}
-								/>
-							)}
-							{step === 4 && (
-								<Step4Foot
-									step={step}
-									setStep={setStep}
-								/>
-							)}
-						</div>
-					</CardContent>
-				</form>
-			</Form>
-		</Card>
+
+								{step === 1 && (
+									<Step1Foot
+										step={step}
+										setStep={setStep}
+									/>
+								)}
+								{step === 2 && (
+									<Step2Foot
+										step={step}
+										setStep={setStep}
+									/>
+								)}
+								{step === 3 && (
+									<Step3Foot
+										step={step}
+										setStep={setStep}
+									/>
+								)}
+								{step === 4 && (
+									<Step4Foot
+										step={step}
+										setStep={setStep}
+									/>
+								)}
+							</div>
+						</CardContent>
+					</form>
+				</Form>
+			</Card>
+		</div>
 	)
 }
 
