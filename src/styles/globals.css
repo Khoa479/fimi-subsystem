@@ -75,14 +75,14 @@ body,
 	}
 
 	::-webkit-scrollbar {
-		@apply w-1.5
+		@apply w-1.5;
 	}
 
 	::-webkit-scrollbar-track {
-		@apply bg-primary/15
+		@apply bg-primary/15;
 	}
 
 	::-webkit-scrollbar-thumb {
-		@apply bg-primary/60
+		@apply bg-primary/60;
 	}
 }
