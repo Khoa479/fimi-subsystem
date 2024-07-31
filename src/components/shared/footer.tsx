@@ -23,7 +23,7 @@ const Footer = () => {
 								<div className='rounded-full bg-white p-2 text-primary'>
 									<Home className='h-6 w-6' />
 								</div>
-								<p className='text-base font-semibold lg:text-lg'>
+								<p className='text-base font-semibold'>
 									Hội sở: Tầng 72, Landmark 81, Vinhomes Central Park, 720A Điện
 									Biên Phủ, P.22, Q.Bình Thạnh, TP.HCM.
 								</p>
@@ -32,33 +32,29 @@ const Footer = () => {
 								<div className='rounded-full bg-white p-2 text-primary'>
 									<MapPin className='h-6 w-6' />
 								</div>
-								<p className='text-base font-semibold lg:text-lg'>
+								<p className='text-base font-semibold'>
 									CN HCM: Tầng 1, Tòa Nhà H3, 384 Hoàng Diệu, Phường 6, Quận 4,
 									TP.HCM.
 								</p>
 							</div>
-							<div className='flex flex-wrap gap-4'>
+							<div className='flex flex-wrap gap-4 lg:space-x-28'>
 								<div className='flex items-center gap-4'>
 									<div className='rounded-full bg-white p-2 text-primary'>
 										<Mail className='h-6 w-6' />
 									</div>
-									<p className='text-base font-semibold lg:text-lg'>
-										admin@fimi.tech
-									</p>
+									<p className='text-base font-semibold'>admin@fimi.tech</p>
 								</div>
 								<div className='flex items-center gap-4'>
 									<div className='rounded-full bg-white p-2 text-primary'>
 										<Phone className='h-6 w-6' />
 									</div>
-									<p className='text-base font-semibold lg:text-lg'>
-										0393 017 031
-									</p>
+									<p className='text-base font-semibold'>0393 017 031</p>
 								</div>
 								<div className='flex items-center gap-4'>
 									<div className='rounded-full bg-white p-2 text-primary'>
 										<Clock className='h-6 w-6' />
 									</div>
-									<p className='text-base font-semibold lg:text-lg'>
+									<p className='text-base font-semibold'>
 										8:30 - 17:30 | Thứ 2 - Thứ 6
 									</p>
 								</div>
@@ -105,7 +101,7 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
-			<div className='container bg-background'>
+			<div className='container bg-background py-3'>
 				<p className='font-bold text-primary'>
 					Copyright © FIMI Tech Co., Ltd, all right reserved.
 				</p>
